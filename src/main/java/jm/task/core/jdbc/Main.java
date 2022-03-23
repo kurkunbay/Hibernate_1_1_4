@@ -3,27 +3,25 @@ package jm.task.core.jdbc;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
+
 public class Main {
-    private static final UserService userService = new UserServiceImpl();
-    private static final User user1 = new User("Иван", "Иванов", (byte) 15);
-    private static final User user2 = new User("Петр", "Петров", (byte) 24);
-    private static final User user3 = new User("Василий", "Пупкин", (byte) 126);
-    private static final User user4 = new User("Сэм", "Самогонов", (byte) 76);
-
     public static void main(String[] args) {
+        UserServiceImpl userService = new UserServiceImpl();
+
         userService.createUsersTable();
-        userService.createUsersTable();
 
-        userService.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
-        userService.saveUser(user2.getName(), user2.getLastName(), user2.getAge());
-        userService.saveUser(user3.getName(), user3.getLastName(), user3.getAge());
-        userService.saveUser(user4.getName(), user4.getLastName(), user4.getAge());
+        userService.saveUser("Ivan", "Ivanov", (byte) 17);
+        userService.saveUser("Petr", "Petrov", (byte) 26);
+        userService.saveUser("Peter", "Pan", (byte) 35);
+        userService.saveUser("Sam", "Angry", (byte) 126);
 
-        System.out.println(userService.getAllUsers());
+        System.out.println(userService.getAllUsers().toString());
 
-        userService.cleanUsersTable();
+        userService.removeUserById(1);
 
         userService.dropUsersTable();
     }
